@@ -2,7 +2,6 @@
 #include <iostream>
 
 int main() {
-  MkArray();
-  std::cout << "hell word" << std::endl;
+  MkArrayTest();
   return 0;
 }
