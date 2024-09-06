@@ -1,4 +1,5 @@
 #include "../../include/mk-array/mk-array.h"
+#include "../../include/mk-array/mk-list.h"
 
 void MkArrayTest() {
   size_t SIZE = 10;
@@ -25,3 +26,5 @@ void MkArrayTest() {
 
   t->foreach ([](double v) { printf("%f\n", v); });
 }
+
+void MkArrayList() { std::cout << "MkArrayList" << std::endl; }
