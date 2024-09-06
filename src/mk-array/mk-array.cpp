@@ -19,4 +19,9 @@ void MkArrayTest() {
   t->foreach ([](double v) { printf("%f\n", v); });
 
   std::cout << "tt:" << t->at(-1) << std::endl;
+  std::cout << "tt-i:" << t->find(t->at(-1)) << std::endl;
+
+  t->extends(2);
+
+  t->foreach ([](double v) { printf("%f\n", v); });
 }

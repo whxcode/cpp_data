@@ -49,6 +49,31 @@ public:
     return fArray[index];
   }
 
+  size_t find(const T &v) {
+    for (size_t i = 0; i < fSize; ++i) {
+      if (v == fArray[i]) {
+        return i;
+      }
+    }
+    return -1;
+  }
+
+  void extends(size_t newSize) {
+    T *array = new T[newSize];
+
+    for (size_t i = 0; i < fSize; ++i) {
+      if (i < newSize) {
+        array[i] = fArray[i];
+        continue;
+      }
+      break;
+    }
+
+    delete fArray;
+    fArray = array;
+    fSize = newSize;
+  }
+
 public:
   T &operator[](size_t t) { return *(fArray + t); }
   T &operator()(size_t t) { return *(fArray + t); }
