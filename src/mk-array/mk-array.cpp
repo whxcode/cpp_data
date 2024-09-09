@@ -1,5 +1,6 @@
 #include "../../include/mk-array/mk-array.h"
 #include "../../include/mk-array/mk-list.h"
+#include <memory>
 
 void MkArrayTest() {
   size_t SIZE = 10;
@@ -27,4 +28,25 @@ void MkArrayTest() {
   t->foreach ([](double v) { printf("%f\n", v); });
 }
 
-void MkArrayList() { std::cout << "MkArrayList" << std::endl; }
+void MkArrayList() {
+  MkList<int> list;
+  list.push(100);
+  list.push(200);
+  list.insert(50, 1);
+  list.insert(1000, 3);
+  list.insert(3000, 3);
+
+  std::cout << "size:" << list.getSize() << std::endl;
+
+  list.foreach ([](int v) { printf("%d\n", v); });
+
+  // list.detach(1);
+  // list.detach(0);
+  // list.detach(0);
+  // list.detach(0);
+
+  // list.foreach ([](int v) { printf("%d\n", v); });
+  // std::make_index_sequence
+  // std::make_shared<B>();
+  // std::cout << "MkArrayList" << std::endl;
+}
