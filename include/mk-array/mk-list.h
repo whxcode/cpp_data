@@ -94,7 +94,29 @@ public:
     }
   }
 
+  Node *at(size_t index) {
+    if (index < 0 || index >= fSize) {
+      return nullptr;
+    }
+    Node *temp = fHead->fNext;
+    for (int i = 0; i < index; ++i) {
+      temp = temp->fNext;
+    }
+    return temp;
+  }
+
   size_t getSize() { return fSize; }
+
+  template <typename U> MkList<U> *map(std::function<U(T)> func) {
+    MkList<U> *list = new MkList<U>();
+    Node *temp = fHead->fNext;
+    for (int i = 0; i < fSize; ++i) {
+      list->push(func(*temp->fValue));
+      temp = temp->fNext;
+    }
+
+    return list;
+  }
 
 private:
   Node *fHead{nullptr};

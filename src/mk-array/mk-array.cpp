@@ -40,6 +40,12 @@ void MkArrayList() {
 
   list.foreach ([](int v) { printf("%d\n", v); });
 
+  list.map<double>([](int v) -> double { return v * 1.5; })
+      ->foreach ([](double v) { printf("%f\n", v); });
+
+  list.map<std::string>([](int v) { return "whx" + std::to_string(v); })
+      ->foreach ([](std::string v) { printf("%s\n", v.c_str()); });
+
   // list.detach(1);
   // list.detach(0);
   // list.detach(0);
