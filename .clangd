@@ -1,0 +1,35 @@
+CompileFlags:
+   Add: [-Wunused-variable, -Wfloat-conversion] # 添加 -Wfloat-conversion 标志
+
+InlayHints:
+  BlockEnd: Yes # 在代码块结束处显示提示
+  Designators: Yes # 显示设计符提示
+  Enabled: Yes # 启用内联提示
+  ParameterNames: Yes # 显示参数名提示
+  DeducedTypes: Yes # 显示推断类型提示
+  TypeNameLimit: 0 # 类型名提示的长度限制，0 表示无限制
+
+Hover:
+  ShowAKA: Yes # 在悬停提示中显示别名
+
+Diagnostics:
+  ClangTidy: # ClangTidy 诊断选项
+    Add: modernize*, readability-implicit-bool-conversion # 添加诊断规则
+
+CrossFileReferences: Yes # 启用跨文件引用
+
+
+ClangTidy:
+  CheckOptions: # ClangTidy 检查选项
+    readability-identifier-naming.NamespaceCase: lower_case # 命名空间使用小写
+
+SemanticHighlighting: Yes # 启用语义高亮
+
+Completion:
+  IncludeIneligibleResults: Yes # 在代码补全中包含不合格的结果
+  AllScopes: Yes # 在所有作用域中搜索补全项
+  Filter: Yes # 过滤补全列表以移除不相关的项
+  Sort: Yes # 对补全列表进行排序
+
+Index:
+  Background: Build     # Disable slow background indexing of these files.

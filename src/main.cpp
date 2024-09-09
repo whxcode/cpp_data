@@ -1,9 +1,13 @@
-#include "../include/mk-array/mk-array.h"
-#include "../include/mk-array/mk-list.h"
 #include <iostream>
 
+#include "../include/mk-array/mk-array.hpp"
+#include "../include/mk-array/mk-list.hpp"
+#include "../include/mk-array/mk-stack.hpp"
+
 int main() {
-  // MkArrayTest();
-  MkArrayList();
-  return 0;
+    // MkArrayTest();
+    // MkArrayList();
+
+    MkStackTest();
+    return 0;
 }
