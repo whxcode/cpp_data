@@ -61,16 +61,51 @@ void MkArrayList() {
     // std::cout << "MkArrayList" << std::endl;
 }
 
-void MkStackTest() {
-    MkStack<int> stack;
-    stack.push(1);
-    stack.push(2);
-    stack.push(3);
+static int sum(int n) {
+    if (n == 0) return 0;
 
-    std::cout << "isEmpty:" << stack.isEmpty() << std::endl;
+    return n + sum(n - 1);
+}
 
-    while (!stack.isEmpty()) {
-        std::cout << stack.top() << std::endl;
-        stack.pop();
+static long int fibonacci(int n) {
+    /*
+      if (n == 1 || n == 2) {
+          return n - 1;
+      }
+
+      long int r = fibonacci(n - 1) + fibonacci(n - 2);
+
+      return r;
+
+    */
+    long r = 1;
+    long l = 0;
+    long c = 0;
+
+    while (n > 2) {
+        c = l + r;
+        l = r;
+        r = c;
+        n--;
     }
+
+    return c;
+}
+
+void MkStackTest() {
+    std::cout << "sum(5): " << sum(5) << std::endl;
+    std::cout << "fibonacci(5): " << fibonacci(60) << std::endl;
+    /*
+      MkStack<int> stack;
+      stack.push(1);
+      stack.push(2);
+      stack.push(3);
+
+      std::cout << "isEmpty:" << stack.isEmpty() << std::endl;
+
+      while (!stack.isEmpty()) {
+          std::cout << stack.top() << std::endl;
+          stack.pop();
+      }
+    */
 }
