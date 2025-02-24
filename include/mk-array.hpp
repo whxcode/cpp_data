@@ -1,4 +1,5 @@
 #pragma once
+#include <functional>
 #include <iostream>
 
 template <typename T>
@@ -18,7 +19,7 @@ public:
     }
 
     T &operator[](const size_t index) {
-        throw std::out_of_range("whx");
+        // throw std::out_of_range("whx");
         return fData[index];
     }
 
@@ -36,6 +37,74 @@ public:
 private:
     T *fData{nullptr};
     size_t fSize{0};
+};
+
+class MkList {
+public:
+    struct Node {
+        int *fValue{nullptr};
+        Node *fNext{nullptr};
+    };
+
+public:
+    void insert(const int &v) {
+        auto node = new Node;
+        node->fValue = new int(v);
+        node->fNext = fHead;
+
+        if (fTail == nullptr) {
+            fHead->fNext = node;
+            fTail = node;
+            fTail->fNext = fHead->fNext;
+            ++fSize;
+            return;
+        }
+
+        auto temp = fHead->fNext;
+
+        node->fNext = temp;
+        fHead->fNext = node;
+        fTail->fNext = fHead->fNext;
+
+        ++fSize;
+    }
+
+    void each() {
+        std::function<void(Node * start, Node * end)> p = [&p](Node *start, Node *end) {
+            if (start == end) {
+                printf("%d\n", *start->fValue);
+                return;
+            }
+
+            p(start->fNext, end);
+            printf("%d\n", *start->fValue);
+        };
+
+        p(fHead->fNext, fTail);
+    }
+
+protected:
+    Node *fHead{new Node};
+    Node *fTail{nullptr};
+    size_t fSize;
+};
+
+class MkStack : public MkList {
+public:
+    void push(const int v) { this->insert(v); }
+    int pop() {
+        auto top = fHead->fNext;
+        fHead->fNext = top->fNext;
+        fTail->fNext = fHead->fNext;
+
+        --fSize;
+        auto v = *top->fValue;
+        delete top->fValue;
+        delete top;
+        return v;
+    }
+
+    bool empty() { return fSize == 0; }
 };
 
 void mkArrayTest();
