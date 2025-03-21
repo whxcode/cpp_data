@@ -93,3 +93,84 @@ private:
     std::vector<T> fData;
     Compare fComp;  // 比较器，用于决定是大顶堆还是小顶堆
 };
+
+class MkArrayTree {
+public:
+    size_t size() { return fData.size(); }
+    size_t leftIndex(const size_t i) { return i * 2 + 1; }
+    size_t rightIndex(const size_t i) { return i * 2 + 2; }
+    size_t parentIndex(const size_t i) { return i == 0 ? 0 : int((i - 1) / 2); }
+
+    void push(const int v) { fData.push_back(v); }
+    void dfs(const size_t i) {
+        if (i >= fData.size()) {
+            return;
+        }
+        dfs(leftIndex(i));
+        printf("%d ", fData[i]);
+        dfs(rightIndex(i));
+    }
+
+private:
+    std::vector<int> fData;
+};
+
+class MkHeap {
+public:
+    int parentIndex(const size_t i) { return i == 0 ? 0 : int((i - 1) / 2); }
+    int leftIndex(const size_t i) { return i * 2 + 1; }
+    int rightIndex(const size_t i) { return i * 2 + 2; }
+
+    void push(const int v) {
+        fData.push_back(v);
+        shiftUp(fData.size() - 1);
+    }
+    void pop() {
+        // swap
+        std::swap(fData[0], fData.back());
+        fData.pop_back();
+        shiftDown(0);
+    }
+
+    bool empty() { return fData.empty(); }
+
+    int peek() { return fData[0]; }
+
+private:
+    void shiftUp(const int index) {
+        auto i = index;
+
+        while (true) {
+            int p = parentIndex(i);
+            if (p < 0 || fData[i] <= fData[p]) {
+                break;
+            }
+
+            std::swap(fData[i], fData[p]);
+            i = p;
+        }
+    }
+
+    void shiftDown(const int index) {
+        auto i = index;
+
+        while (true) {
+            auto l = leftIndex(i), r = rightIndex(i), max = i;
+            if (l < fData.size() && fData[l] > fData[max]) {
+                max = l;
+            }
+
+            if (r < fData.size() && fData[r] > fData[max]) {
+                max = r;
+            }
+            if (max == i) {
+                break;
+            }
+
+            std::swap(fData[i], fData[max]);
+        }
+    }
+
+private:
+    std::vector<int> fData;
+};
