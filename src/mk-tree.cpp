@@ -3,7 +3,7 @@
 #include <queue>
 #include <unordered_map>
 
-void printfVector(const std::vector<int> &v) {
+static void printfVector(const std::vector<int> &v) {
     for (auto i : v) {
         printf("%d,", i);
     }
