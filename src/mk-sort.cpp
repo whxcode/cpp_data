@@ -93,11 +93,51 @@ static void printfVector(const std::vector<int> &v) {
     printf("\n");
 }
 
+static void ShiftDown(std::vector<int> &v, const size_t size, const int index) {
+    int i = index;
+
+    while (true) {
+        int left = i * 2 + 1;
+        int right = i * 2 + 2;
+        int m = i;
+
+        if (left < size && v[m] <= v[left]) {
+            m = left;
+        }
+
+        if (right < size && v[m] <= v[right]) {
+            m = right;
+        }
+
+        if (m == i) {
+            break;
+        }
+
+        std::swap(v[m], v[i]);
+        i = m;
+    }
+}
+
+static void HeapSort(std::vector<int> &v) {
+    for (int i = v.size() / 2 - 1; i >= 0; i--) {
+        ShiftDown(v, v.size(), i);
+    }
+
+    for (int i = v.size() - 1; i >= 0; i--) {
+        std::swap(v[0], v[i]);
+        ShiftDown(v, i, 0);
+    }
+
+    printfVector(v);
+}
+
 void testSort() {
     auto a = rangeVector();
-    printfVector(a);
-    // quickSort(a, (size_t)0, a.size() - 1);
-    mergeSort(a, (size_t)0, a.size() - 1);
-
-    printfVector(a);
+    //  printfVector(a);
+    //  quickSort(a, (size_t)0, a.size() - 1);
+    //  mergeSort(a, (size_t)0, a.size() - 1);
+    //  printfVector(a);
+    // Heap h = Heap::Make(rangeVector());
+    // printfVector(h.toVector());
+    HeapSort(a);
 }
