@@ -89,4 +89,55 @@ private:
     std::vector<int> fData;
 };
 
+class Link {
+    struct Node {
+        int fVal{0};
+        Node *fNext{nullptr};
+    };
+
+public:
+    void unShift(int val) {
+        Node *node = new Node;
+        node->fVal = val;
+        if (fHead == nullptr) {
+            fHead = node;
+        } else {
+            node->fNext = fHead;
+            fHead = node;
+        }
+    }
+
+    std::vector<int> toVector() {
+        std::vector<int> a;
+        auto temp = fHead;
+
+        while (temp) {
+            a.push_back(temp->fVal);
+            temp = temp->fNext;
+        }
+
+        return a;
+    }
+
+    void del(const int val) { fHead = delNode(fHead, val); }
+
+private:
+    Node *delNode(Node *node, int val) {
+        if (node == nullptr) {
+            return node;
+        }
+
+        node->fNext = delNode(node->fNext, val);
+
+        if (node->fVal == val) {
+            return node->fNext;
+        }
+
+        return node;
+    }
+
+private:
+    Node *fHead{nullptr};
+};
+
 void testSort();

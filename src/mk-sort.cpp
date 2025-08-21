@@ -4,25 +4,30 @@
 #include <cstdio>
 #include <vector>
 
-// 快速排序
-
-// 找到满足  left < i < right
-size_t partition(std::vector<int> &v, size_t left, size_t right) {
-    int i = left, j = right;
-    while (i < j) {
-        while (i < j && v[j] >= v[left]) {
-            j--;
-        }
-
-        while (i < j && v[i] <= v[left]) {
-            i++;
-        }
-
-        std::swap(v[i], v[j]);
+static void printfVector(const std::vector<int> &v) {
+    for (auto i : v) {
+        printf("%d,", i);
     }
 
-    // 将 left 放到 i 位置
-    std::swap(v[left], v[i]);
+    printf("\n");
+}
+
+// 快速排序
+
+static size_t partition(std::vector<int> &v, size_t left, size_t right) {
+    size_t povit = (left + right) / 2;
+    int value = v[povit];
+
+    std::swap(v[povit], v[right]);
+
+    int i = left;
+    for (int j = left; j < right; j++) {
+        if (v[j] < value) {
+            std::swap(v[i++], v[j]);
+        }
+    }
+
+    std::swap(v[i], v[right]);
 
     return i;
 }
@@ -85,9 +90,9 @@ std::vector<int> rangeVector() {
     return a;
 }
 
-static void printfVector(const std::vector<int> &v) {
+static void printfVectorF(const std::vector<float> &v) {
     for (auto i : v) {
-        printf("%d,", i);
+        printf("%f,", i);
     }
 
     printf("\n");
@@ -131,13 +136,94 @@ static void HeapSort(std::vector<int> &v) {
     printfVector(v);
 }
 
+static void BucketSort(std::vector<float> &nums) {
+    int k = nums.size() / 2;
+    std::vector<std::vector<float>> buckets(k);
+
+    for (float num : nums) {
+        int i = (int)(num * k);
+        buckets[i].push_back(num);
+    }
+    for (auto &bucket : buckets) {
+        std::sort(bucket.begin(), bucket.end());
+    }
+    int i = 0;
+    for (auto &bucket : buckets) {
+        for (auto v : bucket) {
+            nums[i++] = v;
+            ;
+        }
+    }
+}
+
+static void CountingSortNaive(std::vector<int> &nums) {
+    int max = *std::max_element(nums.begin(), nums.end());
+    std::vector<int> count(max + 1, 0);
+
+    for (auto num : nums) {
+        count[num]++;
+    }
+
+    int i = 0;
+
+    for (int num = 0; num < max + 1; ++num) {
+        for (int j = 0; j < count[num]; ++j, ++i) {
+            nums[i] = num;
+        }
+    }
+}
+
+static int BinaryFind(const std::vector<int> &nums, const int val, const size_t left,
+                      const size_t right) {
+    if (left > right) {
+        return -1;
+    }
+
+    int m = (right + left) / 2;
+
+    return val == nums[m] ? m
+                          : (val > nums[m] ? BinaryFind(nums, val, m + 1, right)
+                                           : BinaryFind(nums, val, left, m - 1));
+};
+
+static void ArrangeData(std::vector<int> &nums, std::vector<int> &out) {}
+
 void testSort() {
-    auto a = rangeVector();
+    std::vector<int> num = {5, 4, 3, 2, 1, 5, 2, 4};
+    quickSort(num, 0, num.size() - 1);
+    // partition(num, 0, num.size() - 1);
+    printfVector(num);
+
+    // auto a = rangeVector();
+
     //  printfVector(a);
     //  quickSort(a, (size_t)0, a.size() - 1);
     //  mergeSort(a, (size_t)0, a.size() - 1);
     //  printfVector(a);
     // Heap h = Heap::Make(rangeVector());
     // printfVector(h.toVector());
-    HeapSort(a);
+    // HeapSort(a);
+
+    // std::vector<float> fNums = {0.1, 0.4, 0.2, 0.7, 0.3};
+    // BucketSort(fNums);
+    // printfVectorF(fNums);
+
+    // std::vector<int> nums = {10, 20, 39, 53, 200};
+    // printf("%d\n", BinaryFind(nums, 200, 0, nums.size() - 1));
+
+    /*
+      Link l;
+      l.unShift(20);
+      l.unShift(30);
+      l.unShift(40);
+      l.unShift(50);
+      l.unShift(20);
+      l.unShift(60);
+
+      printfVector(l.toVector());
+      l.del(60);
+      // l.del(50);
+      // l.del(20);
+      printfVector(l.toVector());
+    */
 }
