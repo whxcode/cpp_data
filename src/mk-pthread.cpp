@@ -256,7 +256,9 @@ static void test07() {
 }
 
 void testPThread() {
-    test07();
+    int a = 100;
+    printf("%f\n", a);
+    // test07();
     // test06();
     // test04();
     // test03();

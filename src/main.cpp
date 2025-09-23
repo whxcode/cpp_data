@@ -1,6 +1,7 @@
 #include <chrono>
 #include <cmath>
 
+#include "../include/coroutines.hpp"
 #include "../include/mk-pthread.h"
 
 /*
@@ -30,7 +31,8 @@ void test(Context &&c) {
 */
 
 int main() {
-    testPThread();
+    runCoroutines();
+    // testPThread();
 
     /*
       uint8_t u = 1;
